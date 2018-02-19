@@ -1,0 +1,30 @@
+{
+  "name": "battlerite-stats-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nf start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theuzer/battlerite-stats-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theuzer/battlerite-stats-api/issues"
+  },
+  "homepage": "https://github.com/theuzer/battlerite-stats-api#readme",
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "iniparser": "^1.0.5",
+    "mongoose": "^5.0.6",
+    "mssql": "^4.1.0"
+  }
+}
