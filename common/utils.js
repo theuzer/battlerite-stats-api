@@ -8,6 +8,16 @@ const english = iniparser.parseSync('./static/assets/English.ini');
 
 exports.getChampionName = championCode => english[gameplay.characters.filter(x => x.typeID === championCode)[0].name];
 
+exports.getChampionIconId = championCode => gameplay.characters.filter(x => x.typeID === championCode)[0].icon;
+
+exports.getChampionNameAndIcon = (championCode) => {
+  const championData = gameplay.characters.filter(x => x.typeID === championCode)[0];
+  return {
+    name: english[championData.name],
+    iconId: championData.icon,
+  };
+};
+
 exports.getChampionListArray = dataIn =>
   dataIn.map(x => x.championCode).filter((value, index, self) => self.indexOf(value) === index);
 

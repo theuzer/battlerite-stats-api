@@ -11,14 +11,17 @@ const noResultsFound = {
 const handleUnfilteredResponse = (dataIn) => {
   const champions = utils.getChampionList(dataIn);
   champions.forEach((champion, i) => {
-    champions[i].championName = utils.getChampionName(champion.championCode);
+    const nameAndIcon = utils.getChampionNameAndIcon(champion.championCode);
     const a = dataIn.filter(x => x.championCode === champion.championCode);
+
     const stats = a.reduce((b, c) =>
       ({
         wins: b.wins + c.duoRanked.wins + c.duoNormal.wins + c.trioNormal.wins + c.trioRanked.wins,
         losses: b.losses + c.duoRanked.losses + c.duoNormal.losses + c.trioNormal.losses + c.trioRanked.losses,
       }), { wins: 0, losses: 0 });
 
+    champions[i].championName = nameAndIcon.name;
+    champions[i].iconId = nameAndIcon.iconId;
     champions[i].wins = stats.wins;
     champions[i].losses = stats.losses;
     champions[i].totalGames = stats.wins + stats.losses;
