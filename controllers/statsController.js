@@ -8,17 +8,72 @@ const noResultsFound = {
   response: 'no results found',
 };
 
-const handleUnfilteredResponse = (dataIn) => {
-  const champions = utils.getChampionList(dataIn);
-  champions.forEach((champion, i) => {
-    const nameAndIcon = utils.getChampionNameAndIcon(champion.championCode);
-    const a = dataIn.filter(x => x.championCode === champion.championCode);
-
-    const stats = a.reduce((b, c) =>
+const getWinsLossesByChampion = (championStats, mode, isRanked) => {
+  if (mode === null && isRanked === null) {
+    return championStats.reduce((b, c) =>
       ({
         wins: b.wins + c.duoRanked.wins + c.duoNormal.wins + c.trioNormal.wins + c.trioRanked.wins,
         losses: b.losses + c.duoRanked.losses + c.duoNormal.losses + c.trioNormal.losses + c.trioRanked.losses,
       }), { wins: 0, losses: 0 });
+  } else if (mode === null && isRanked === true) {
+    return championStats.reduce((b, c) =>
+      ({
+        wins: b.wins + c.duoRanked.wins + c.trioRanked.wins,
+        losses: b.losses + c.duoRanked.losses + c.trioRanked.losses,
+      }), { wins: 0, losses: 0 });
+  } else if (mode === null && isRanked === false) {
+    return championStats.reduce((b, c) =>
+      ({
+        wins: b.wins + c.duoNormal.wins + c.trioNormal.wins,
+        losses: b.losses + c.duoNormal.losses + c.trioNormal.losses,
+      }), { wins: 0, losses: 0 });
+  } else if (mode === 2 && isRanked === null) {
+    return championStats.reduce((b, c) =>
+      ({
+        wins: b.wins + c.duoNormal.wins + c.duoRanked.wins,
+        losses: b.losses + c.duoNormal.losses + c.duoRanked.losses,
+      }), { wins: 0, losses: 0 });
+  } else if (mode === 3 && isRanked === null) {
+    return championStats.reduce((b, c) =>
+      ({
+        wins: b.wins + c.trioRanked.wins + c.trioNormal.wins,
+        losses: b.losses + c.trioRanked.losses + c.trioNormal.losses,
+      }), { wins: 0, losses: 0 });
+  } else if (mode === 2 && isRanked === true) {
+    return championStats.reduce((b, c) =>
+      ({
+        wins: b.wins + c.duoRanked.wins,
+        losses: b.losses + c.duoRanked.losses,
+      }), { wins: 0, losses: 0 });
+  } else if (mode === 2 && isRanked === false) {
+    return championStats.reduce((b, c) =>
+      ({
+        wins: b.wins + c.duoNormal.wins,
+        losses: b.losses + c.duoNormal.losses,
+      }), { wins: 0, losses: 0 });
+  } else if (mode === 3 && isRanked === true) {
+    return championStats.reduce((b, c) =>
+      ({
+        wins: b.wins + c.trioRanked.wins,
+        losses: b.losses + c.trioRanked.losses,
+      }), { wins: 0, losses: 0 });
+  } else if (mode === 3 && isRanked === false) {
+    return championStats.reduce((b, c) =>
+      ({
+        wins: b.wins + c.trioNormal.wins,
+        losses: b.losses + c.trioNormal.losses,
+      }), { wins: 0, losses: 0 });
+  }
+  return null;
+};
+
+const handleStats = (dataIn, mode, isRanked) => {
+  const champions = utils.getChampionList(dataIn);
+  champions.forEach((champion, i) => {
+    const nameAndIcon = utils.getChampionNameAndIcon(champion.championCode);
+    const championRawStats = dataIn.filter(x => x.championCode === champion.championCode);
+
+    const stats = getWinsLossesByChampion(championRawStats, mode, isRanked);
 
     champions[i].championName = nameAndIcon.name;
     champions[i].iconId = nameAndIcon.iconId;
@@ -28,19 +83,6 @@ const handleUnfilteredResponse = (dataIn) => {
     champions[i].winRate = stats.wins / (stats.wins + stats.losses);
   });
   return champions;
-};
-
-const handleRankedResponse = (dataIn) => {
-  console.log(dataIn);
-};
-
-const handleStats = (dataIn, isRanked, mode) => {
-  if (isRanked === null && mode === null) {
-    return handleUnfilteredResponse(dataIn);
-  } else if (isRanked !== null) {
-    return handleRankedResponse(dataIn);
-  }
-  return 1;
 };
 
 exports.getStats = (req, res) => {
@@ -55,7 +97,8 @@ exports.getStats = (req, res) => {
         if (log !== null) {
           Stats.find({ log: mongoose.Types.ObjectId(log._id) }).lean().exec()
             .then((stats) => {
-              res.json(handleStats(stats, isRanked, mode));
+              const response = handleStats(stats, mode, isRanked);
+              res.json(response);
             });
         } else {
           res.json(noResultsFound);
@@ -70,7 +113,8 @@ exports.getStats = (req, res) => {
         if (log !== null) {
           Stats.find({ log: mongoose.Types.ObjectId(log._id), league }).lean().exec()
             .then((stats) => {
-              res.json(handleStats(stats, isRanked, mode));
+              const response = handleStats(stats, mode, isRanked);
+              res.json(response);
             });
         } else {
           res.json(noResultsFound);
