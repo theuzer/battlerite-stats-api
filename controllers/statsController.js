@@ -30,9 +30,15 @@ const handleUnfilteredResponse = (dataIn) => {
   return champions;
 };
 
-const handleStats = (dataIn, isRanked, league, mode) => {
-  if (isRanked === null && league === null && mode === null) {
+const handleRankedResponse = (dataIn) => {
+  console.log(dataIn);
+};
+
+const handleStats = (dataIn, isRanked, mode) => {
+  if (isRanked === null && mode === null) {
     return handleUnfilteredResponse(dataIn);
+  } else if (isRanked !== null) {
+    return handleRankedResponse(dataIn);
   }
   return 1;
 };
@@ -43,18 +49,35 @@ exports.getStats = (req, res) => {
   const league = utils.getLeagueFilter(req.query.league);
   const mode = utils.getModeFilter(req.query.mode);
 
-  Log.findOne({ type }).exec()
-    .then((log) => {
-      if (log !== null) {
-        Stats.find({ log: mongoose.Types.ObjectId(log._id) }).lean().exec()
-          .then((stats) => {
-            res.json(handleStats(stats, isRanked, league, mode));
-          });
-      } else {
-        res.json(noResultsFound);
-      }
-    })
-    .catch((err) => {
-      res.json(err);
-    });
+  if (league === null) {
+    Log.findOne({ type }).exec()
+      .then((log) => {
+        if (log !== null) {
+          Stats.find({ log: mongoose.Types.ObjectId(log._id) }).lean().exec()
+            .then((stats) => {
+              res.json(handleStats(stats, isRanked, mode));
+            });
+        } else {
+          res.json(noResultsFound);
+        }
+      })
+      .catch((err) => {
+        res.json(err);
+      });
+  } else {
+    Log.findOne({ type }).exec()
+      .then((log) => {
+        if (log !== null) {
+          Stats.find({ log: mongoose.Types.ObjectId(log._id), league }).lean().exec()
+            .then((stats) => {
+              res.json(handleStats(stats, isRanked, mode));
+            });
+        } else {
+          res.json(noResultsFound);
+        }
+      })
+      .catch((err) => {
+        res.json(err);
+      });
+  }
 };
