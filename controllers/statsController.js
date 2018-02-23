@@ -16,6 +16,9 @@ const getWinsLossesByChampion = (championStats, mode, isRanked) => {
         losses: b.losses + c.duoRanked.losses + c.duoNormal.losses + c.trioNormal.losses + c.trioRanked.losses,
         totalGames: b.gamesCount + c.duoRanked.gamesCount + c.duoNormal.gamesCount + c.trioNormal.gamesCount + c.trioRanked.gamesCount,
         totalRounds: b.roundsCount + c.duoRanked.roundsCount + c.duoNormal.roundsCount + c.trioNormal.roundsCount + c.trioRanked.roundsCount,
+        abilityUses: b.abilityUses + c.duoRanked.abilityUses + c.duoNormal.abilityUses + c.trioNormal.abilityUses + c.trioRanked.abilityUses,
+        damageDone: b.damageDone + c.duoRanked.damageDone + c.duoNormal.damageDone + c.trioNormal.damageDone + c.trioRanked.damageDone,
+
       }), { wins: 0, losses: 0 });
   } else if (mode === null && isRanked === true) {
     return championStats.reduce((b, c) =>
@@ -81,8 +84,11 @@ const handleStats = (dataIn, mode, isRanked) => {
     champions[i].iconId = nameAndIcon.iconId;
     champions[i].wins = stats.wins;
     champions[i].losses = stats.losses;
-    champions[i].totalGames = stats.wins + stats.losses;
-    champions[i].winRate = stats.wins / (stats.wins + stats.losses);
+    champions[i].totalGames = stats.totalGames;
+    champions[i].totalRounds = stats.totalRounds;
+    champions[i].winRate = stats.wins / stats.totalGames;
+    champions[i].abilityUses = stats.abilityUse;
+    champions[i].damageDone = stats.damageDone;
   });
   return champions;
 };
