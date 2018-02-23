@@ -15,9 +15,7 @@ const handleStats = (dataIn, mode, isRanked) => {
     const nameAndIcon = utils.getChampionNameAndIcon(champion.championCode);
     const championRawStats = dataIn.filter(x => x.championCode === champion.championCode);
 
-    console.time('mapper');
     const stats = statsMapper.getWinsLossesByChampion(championRawStats, mode, isRanked);
-    console.timeEnd('mapper');
     stats.winRate = stats.wins / stats.gamesCount;
 
     champions[i].championName = nameAndIcon.name;
