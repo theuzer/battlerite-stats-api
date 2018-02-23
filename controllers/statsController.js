@@ -18,7 +18,18 @@ const getWinsLossesByChampion = (championStats, mode, isRanked) => {
         roundsCount: b.roundsCount + c.duoRanked.roundsCount + c.duoNormal.roundsCount + c.trioNormal.roundsCount + c.trioRanked.roundsCount,
         abilityUses: b.abilityUses + c.duoRanked.abilityUses + c.duoNormal.abilityUses + c.trioNormal.abilityUses + c.trioRanked.abilityUses,
         damageDone: b.damageDone + c.duoRanked.damageDone + c.duoNormal.damageDone + c.trioNormal.damageDone + c.trioRanked.damageDone,
-      }), { wins: 0, losses: 0, gamesCount: 0, roundsCount: 0, abilityUses: 0, damageDone: 0 });
+        damageReceived: b.damageReceived + c.duoRanked.damageReceived + c.duoNormal.damageReceived + c.trioRanked.damageReceived + c.trioNormal.damageReceived,
+        deaths: b.deaths + c.duoRanked.deaths + c.duoNormal.deaths + c.trioRanked.deaths + c.trioNormal.deaths,
+        disablesDone: b.disablesDone + c.duoRanked.disablesDone + c.duoNormal.disablesDone + c.trioRanked.disablesDone + c.trioNormal.disablesDone,
+        disablesReceived: b.disablesReceived + c.duoRanked.disablesReceived + c.duoNormal.disablesReceived + c.trioRanked.disablesReceived + c.trioNormal.disablesReceived,
+        energyGained: b.energyGained + c.duoRanked.energyGained + c.duoNormal.energyGained + c.trioRanked.energyGained + c.trioNormal.energyGained,
+        energyUsed: b.energyUsed + c.duoRanked.energyUsed + c.duoNormal.energyUsed + c.trioRanked.energyUsed + c.trioNormal.energyUsed,
+        healingDone: b.healingDone + c.duoRanked.healingDone + c.duoNormal.healingDone + c.trioRanked.healingDone + c.trioNormal.healingDone,
+        healingReceived: b.healingReceived + c.duoRanked.healingReceived + c.duoNormal.healingReceived + c.trioRanked.healingReceived + c.trioNormal.healingReceived,
+        kills: b.kills + c.duoRanked.kills + c.duoNormal.kills + c.trioRanked.kills + c.trioNormal.kills,
+        score: b.score + c.duoRanked.score + c.duoNormal.score + c.trioRanked.score + c.trioNormal.score,
+        timeAlive: b.timeAlive + c.duoRanked.timeAlive + c.duoNormal.timeAlive + c.trioRanked.timeAlive + c.trioNormal.timeAlive,
+      }), { wins: 0, losses: 0, gamesCount: 0, roundsCount: 0, abilityUses: 0, damageDone: 0, damageReceived: 0, deaths: 0, disabledDone: 0, disablesReceived: 0, energyGained: 0, energyUsed: 0, healingDone: 0, healingReceived: 0, kills: 0, score: 0, timeAlive: 0 });
   } else if (mode === null && isRanked === true) {
     return championStats.reduce((b, c) =>
       ({
