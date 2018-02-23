@@ -14,6 +14,8 @@ const getWinsLossesByChampion = (championStats, mode, isRanked) => {
       ({
         wins: b.wins + c.duoRanked.wins + c.duoNormal.wins + c.trioNormal.wins + c.trioRanked.wins,
         losses: b.losses + c.duoRanked.losses + c.duoNormal.losses + c.trioNormal.losses + c.trioRanked.losses,
+        totalGames: b.gamesCount + c.duoRanked.gamesCount + c.duoNormal.gamesCount + c.trioNormal.gamesCount + c.trioRanked.gamesCount,
+        totalRounds: b.roundsCount + c.duoRanked.roundsCount + c.duoNormal.roundsCount + c.trioNormal.roundsCount + c.trioRanked.roundsCount,
       }), { wins: 0, losses: 0 });
   } else if (mode === null && isRanked === true) {
     return championStats.reduce((b, c) =>
