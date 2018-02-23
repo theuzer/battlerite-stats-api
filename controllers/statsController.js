@@ -35,49 +35,49 @@ const getWinsLossesByChampion = (championStats, mode, isRanked) => {
       ({
         wins: b.wins + c.duoRanked.wins + c.trioRanked.wins,
         losses: b.losses + c.duoRanked.losses + c.trioRanked.losses,
-      }), { wins: 0, losses: 0 });
+      }), { wins: 0, losses: 0, gamesCount: 0, roundsCount: 0, abilityUses: 0, damageDone: 0, damageReceived: 0, deaths: 0, disabledDone: 0, disablesReceived: 0, energyGained: 0, energyUsed: 0, healingDone: 0, healingReceived: 0, kills: 0, score: 0, timeAlive: 0 });
   } else if (mode === null && isRanked === false) {
     return championStats.reduce((b, c) =>
       ({
         wins: b.wins + c.duoNormal.wins + c.trioNormal.wins,
         losses: b.losses + c.duoNormal.losses + c.trioNormal.losses,
-      }), { wins: 0, losses: 0 });
+      }), { wins: 0, losses: 0, gamesCount: 0, roundsCount: 0, abilityUses: 0, damageDone: 0, damageReceived: 0, deaths: 0, disabledDone: 0, disablesReceived: 0, energyGained: 0, energyUsed: 0, healingDone: 0, healingReceived: 0, kills: 0, score: 0, timeAlive: 0 });
   } else if (mode === 2 && isRanked === null) {
     return championStats.reduce((b, c) =>
       ({
         wins: b.wins + c.duoNormal.wins + c.duoRanked.wins,
         losses: b.losses + c.duoNormal.losses + c.duoRanked.losses,
-      }), { wins: 0, losses: 0 });
+      }), { wins: 0, losses: 0, gamesCount: 0, roundsCount: 0, abilityUses: 0, damageDone: 0, damageReceived: 0, deaths: 0, disabledDone: 0, disablesReceived: 0, energyGained: 0, energyUsed: 0, healingDone: 0, healingReceived: 0, kills: 0, score: 0, timeAlive: 0 });
   } else if (mode === 3 && isRanked === null) {
     return championStats.reduce((b, c) =>
       ({
         wins: b.wins + c.trioRanked.wins + c.trioNormal.wins,
         losses: b.losses + c.trioRanked.losses + c.trioNormal.losses,
-      }), { wins: 0, losses: 0 });
+      }), { wins: 0, losses: 0, gamesCount: 0, roundsCount: 0, abilityUses: 0, damageDone: 0, damageReceived: 0, deaths: 0, disabledDone: 0, disablesReceived: 0, energyGained: 0, energyUsed: 0, healingDone: 0, healingReceived: 0, kills: 0, score: 0, timeAlive: 0 });
   } else if (mode === 2 && isRanked === true) {
     return championStats.reduce((b, c) =>
       ({
         wins: b.wins + c.duoRanked.wins,
         losses: b.losses + c.duoRanked.losses,
-      }), { wins: 0, losses: 0 });
+      }), { wins: 0, losses: 0, gamesCount: 0, roundsCount: 0, abilityUses: 0, damageDone: 0, damageReceived: 0, deaths: 0, disabledDone: 0, disablesReceived: 0, energyGained: 0, energyUsed: 0, healingDone: 0, healingReceived: 0, kills: 0, score: 0, timeAlive: 0 });
   } else if (mode === 2 && isRanked === false) {
     return championStats.reduce((b, c) =>
       ({
         wins: b.wins + c.duoNormal.wins,
         losses: b.losses + c.duoNormal.losses,
-      }), { wins: 0, losses: 0 });
+      }), { wins: 0, losses: 0, gamesCount: 0, roundsCount: 0, abilityUses: 0, damageDone: 0, damageReceived: 0, deaths: 0, disabledDone: 0, disablesReceived: 0, energyGained: 0, energyUsed: 0, healingDone: 0, healingReceived: 0, kills: 0, score: 0, timeAlive: 0 });
   } else if (mode === 3 && isRanked === true) {
     return championStats.reduce((b, c) =>
       ({
         wins: b.wins + c.trioRanked.wins,
         losses: b.losses + c.trioRanked.losses,
-      }), { wins: 0, losses: 0 });
+      }), { wins: 0, losses: 0, gamesCount: 0, roundsCount: 0, abilityUses: 0, damageDone: 0, damageReceived: 0, deaths: 0, disabledDone: 0, disablesReceived: 0, energyGained: 0, energyUsed: 0, healingDone: 0, healingReceived: 0, kills: 0, score: 0, timeAlive: 0 });
   } else if (mode === 3 && isRanked === false) {
     return championStats.reduce((b, c) =>
       ({
         wins: b.wins + c.trioNormal.wins,
         losses: b.losses + c.trioNormal.losses,
-      }), { wins: 0, losses: 0 });
+      }), { wins: 0, losses: 0, gamesCount: 0, roundsCount: 0, abilityUses: 0, damageDone: 0, damageReceived: 0, deaths: 0, disabledDone: 0, disablesReceived: 0, energyGained: 0, energyUsed: 0, healingDone: 0, healingReceived: 0, kills: 0, score: 0, timeAlive: 0 });
   }
   return null;
 };
@@ -99,6 +99,7 @@ const handleStats = (dataIn, mode, isRanked) => {
     champions[i].winRate = stats.wins / stats.gamesCount;
     champions[i].abilityUses = stats.abilityUses;
     champions[i].damageDone = stats.damageDone;
+    champions[i].stats = stats;
   });
   return champions;
 };
