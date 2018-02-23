@@ -19,7 +19,7 @@ const getWinsLossesByChampion = (championStats, mode, isRanked) => {
         abilityUses: b.abilityUses + c.duoRanked.abilityUses + c.duoNormal.abilityUses + c.trioNormal.abilityUses + c.trioRanked.abilityUses,
         damageDone: b.damageDone + c.duoRanked.damageDone + c.duoNormal.damageDone + c.trioNormal.damageDone + c.trioRanked.damageDone,
 
-      }), { wins: 0, losses: 0 });
+      }), { wins: 0, losses: 0, totalGames: 0, totalRounds: 0, abilityUses: 0, damageDone: 0 });
   } else if (mode === null && isRanked === true) {
     return championStats.reduce((b, c) =>
       ({
