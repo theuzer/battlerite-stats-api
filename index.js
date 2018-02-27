@@ -38,3 +38,23 @@ if (process.env.HEROKU_TIMER_CREATE === 'TRUE') {
     console.log('Pinged application');
   }, parseInt(process.env.HEROKU_APP_TIMER, 10));
 }
+
+const Player = require('./models/player');
+const PlayerIndexed = require('./models/playerIndexed');
+
+Player.find({}).exec()
+  .then((response) => {
+    response.forEach((player) => {
+      const newP = new PlayerIndexed();
+      newP.playerCode = player.playerCode;
+      newP.playerName = player.playerName;
+      newP.save((err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
