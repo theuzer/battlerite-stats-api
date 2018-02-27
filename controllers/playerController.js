@@ -53,12 +53,12 @@ const getMatches = (req, res) => {
       if (response !== null) {
         const playerId = response.playerCode;
         new sql.Request(dataConnection).query(`select * from character where playerCode = cast(${playerId} as bigint)`)
-          .then((response) => {
-            res.json(response);
+          .then((matches) => {
+            res.json(matches);
           })
           .catch((err) => {
             res.json(err);
-          })
+          });
       } else {
         res.json("Player doesn't exist");
       }
