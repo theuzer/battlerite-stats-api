@@ -44,6 +44,8 @@ app.get('/test2', (req, res) => {
   res.send('a');
   Player.find({}).exec()
     .then((response) => {
+      console.log(1);
+      console.log(response[0]);
       response.forEach((player) => {
         const newP = new PlayerIndexed();
         newP.playerCode = player.playerCode;
