@@ -52,7 +52,7 @@ const getMatches = (req, res) => {
     .then((response) => {
       if (response !== null) {
         const playerId = response.playerCode;
-        new sql.Request(dataConnection).query("select * from character where playerCode ="+playerId)
+        new sql.Request(dataConnection).query(`select * from character where playerCode = cast(${playerId} as bigint)`)
           .then((response) => {
             res.json(response);
           })
