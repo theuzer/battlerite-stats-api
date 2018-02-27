@@ -1,7 +1,3 @@
-const gameplay = require('../static/assets/gameplay.json');
-
-exports.getChampionIconId = championCode => gameplay.characters.filter(x => x.typeID === championCode)[0].icon;
-
 exports.getTimePeriodFilter = (timePeriodFilter) => {
   switch (timePeriodFilter) {
     case '0':

@@ -2,9 +2,10 @@ const utils = require('../common/utils');
 const Stats = require('../models/stats');
 
 const handleResponse = champions => champions.map(champion => ({
-  championCode: champion.championCode,
-  championName: champion.championName,
-  championIcon: utils.getChampionIconId(champion.championCode),
+  code: champion.championCode,
+  name: champion.championName,
+  subname: champion.championSubname,
+  iconId: champion.championIcon,
   stats: champion.stats,
 }));
 
