@@ -14,8 +14,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use('/api', routes);
-
 app.get('/test', (req, res) => {
   res.send('hi');
 });
@@ -42,7 +40,7 @@ if (process.env.HEROKU_TIMER_CREATE === 'TRUE') {
 const Player = require('./models/player');
 const PlayerIndexed = require('./models/playerIndexed');
 
-app.get('/test', (req, res) => {
+app.get('/test2', (req, res) => {
   res.send('a');
   Player.find({}).exec()
     .then((response) => {
