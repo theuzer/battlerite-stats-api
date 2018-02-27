@@ -1,5 +1,6 @@
 const sql = require('mssql');
 
+const dataConnection = require('../database/index').dataConnection;
 const Player = require('../models/player');
 
 const checkIfPlayerExists = playerName =>
@@ -51,7 +52,13 @@ const getMatches = (req, res) => {
     .then((response) => {
       if (response !== null) {
         const playerId = response.playerCode;
-        res.json(playerId);
+        new sql.Request(dataConnection).query("select * from character where playerCode ="+playerId)
+          .then((response) => {
+            res.json(response);
+          })
+          .catch((err) => {
+            res.json(err);
+          })
       } else {
         res.json("Player doesn't exist");
       }
