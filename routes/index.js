@@ -5,7 +5,7 @@ const characterController = require('../controllers/characterController');
 
 const router = express.Router();
 
-router.get('/stats', statsController.getStats);
-router.get('/player', characterController.getCharacterHistory);
+router.get('/stats', statsController.getStatsApi);
+router.get('/player/exists', characterController.getPlayer);
 
 module.exports = router;

@@ -9,7 +9,7 @@ const handleResponse = champions => champions.map(champion => ({
   stats: champion.stats,
 }));
 
-exports.getStats = (req, res) => {
+exports.getStatsApi = (req, res) => {
   const timePeriod = utils.getTimePeriodFilter(req.query.timePeriod);
   const isRanked = utils.getRankedFilter(req.query.ranked);
   const league = utils.getLeagueFilter(req.query.league);

@@ -1,8 +1,8 @@
 const Player = require('../models/player');
 
-exports.checkIfPlayerExists = playerCode =>
+const checkIfPlayerExists = playerName =>
   new Promise((resolve, reject) => {
-    Player.findOne({ playerCode }).exec()
+    Player.findOne({ playerName }).exec()
       .then((player) => {
         if (player !== null) {
           resolve(true);
@@ -15,13 +15,17 @@ exports.checkIfPlayerExists = playerCode =>
       });
   });
 
-exports.getAllPlayers = () =>
-  new Promise((resolve, reject) => {
-    Player.find().exec()
-      .then((players) => {
-        resolve(players);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+const checkIfPlayerExistsApi = (req, res) => {
+  const playerName = req.query.playerName;
+  checkIfPlayerExists(playerName)
+    .then((exists) => {
+      res.json(exists);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+};
+
+module.exports = {
+  checkIfPlayerExistsApi,
+};
