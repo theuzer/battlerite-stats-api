@@ -9,5 +9,6 @@ const router = express.Router();
 
 router.get('/stats', statsController.getStatsApi);
 router.get('/player/exists', playerController.checkIfPlayerExistsApi);
+router.get('/player/matches', playerController.getMatches);
 
 module.exports = router;
