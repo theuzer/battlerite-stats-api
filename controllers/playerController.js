@@ -97,9 +97,13 @@ const getMatchesApi = (req, res) => {
           .then((matches) => {
             console.timeEnd('azure call');
             console.time('mappings');
-            const response = handleGetMatchesResponse(matches.recordset);
-            console.timeEnd('mappings');
-            res.json(response);
+            try {
+              const response = handleGetMatchesResponse(matches.recordset);
+              console.timeEnd('mappings');
+              res.json(response);
+            } catch (e) {
+              res.json(e);
+            }
           })
           .catch((err) => {
             console.timeEnd('azure call');
