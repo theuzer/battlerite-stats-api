@@ -79,6 +79,7 @@ const handleGetMatchesResponse = matches => matches.map((match) => {
 });
 
 const getMatchesApi = (req, res) => {
+  console.log(req);
   const playerName = req.query.playerName;
   const page = req.query.page ? req.query.page : 0;
 
