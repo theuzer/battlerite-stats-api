@@ -79,7 +79,10 @@ const handleGetMatchesResponse = matches => matches.map((match) => {
 });
 
 const getMatchesApi = (req, res) => {
-  console.log(req);
+  console.log(req.query.playerName, req.query.page);
+  console.log(req.headers['x-forwarded-for']);
+  console.log(req.connection.remoteAddress);
+
   const playerName = req.query.playerName;
   const page = req.query.page ? req.query.page : 0;
 
