@@ -47,7 +47,6 @@ const checkIfPlayerExistsApi = (req, res) => {
 };
 
 const handleGetMatchesResponse = matches => matches.map((match) => {
-  console.log(match);
   const processedMatchInformation = utils.getMatchInformation(match);
   return {
     id: match.Id,
@@ -89,7 +88,6 @@ const getMatchesApi = (req, res) => {
         const playerId = player.playerCode;
         new sql.Request(dataConnection).query(queries.getCharacterGames(playerId, page))
           .then((matches) => {
-            console.log(matches.recordset);
             const response = handleGetMatchesResponse(matches.recordset);
             res.json(response);
           })

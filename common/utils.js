@@ -9,13 +9,21 @@ const english = iniparser.parseSync('./static/assets/English.ini');
 const getBattleriteInfo = (battleriteCode, championInfo) => championInfo.battlerites.filter(x => x.typeID === battleriteCode)[0]; 
 
 exports.getMatchInformation = (match) => {
+  console.log(1, match.Id);
   const mapInfo = stackables.Mappings.filter(x => x.LocalizedName === map.filter(y => y.mapLogId === match.MapId)[0].mapStackablesId)[0];
+  console.log(2, match.Id);
   const championInfo = gameplay.characters.filter(x => x.typeID === match.ChampionCode)[0];
+  console.log(3, match.Id);
   const battlerite1Info = getBattleriteInfo(match.Br1, championInfo);
+  console.log(4, match.Id);
   const battlerite2Info = getBattleriteInfo(match.Br2, championInfo);
+  console.log(5, match.Id);
   const battlerite3Info = getBattleriteInfo(match.Br3, championInfo);
+  console.log(6, match.Id);
   const battlerite4Info = getBattleriteInfo(match.Br4, championInfo);
+  console.log(7, match.Id);
   const battlerite5Info = getBattleriteInfo(match.Br5, championInfo);
+  console.log(8, match.Id);
 
   return {
     map: {
