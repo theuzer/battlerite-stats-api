@@ -82,16 +82,23 @@ const getMatchesApi = (req, res) => {
   const playerName = req.query.playerName;
   const page = req.query.page ? req.query.page : 0;
 
+  console.time('mongo call');
   getPlayerByName(playerName)
     .then((player) => {
+      console.timeEnd('mongo call');
       if (player !== null) {
         const playerId = player.playerCode;
+        console.time('azure call');
         new sql.Request(dataConnection).query(queries.getCharacterGames(playerId, page))
           .then((matches) => {
+            console.timeEnd('azure call');
+            console.time('mappings');
             const response = handleGetMatchesResponse(matches.recordset);
+            console.timeEnd('mappings');
             res.json(response);
           })
           .catch((err) => {
+            console.timeEnd('azure call');
             res.json(err);
           });
       } else {
@@ -99,6 +106,7 @@ const getMatchesApi = (req, res) => {
       }
     })
     .catch((err) => {
+      console.timeEnd('mongo call');
       res.json(err);
     });
 };
