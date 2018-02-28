@@ -6,7 +6,7 @@ const stackables = require('../static/assets/stackables.json');
 
 const english = iniparser.parseSync('./static/assets/English.ini');
 
-const getBattleriteInfo = (battleriteCode, championInfo) => championInfo.battlerites.filter(x => x.typeID === battleriteCode)[0]; 
+const getBattleriteInfo = (battleriteCode, championInfo) => championInfo.battlerites.filter(x => x.typeID === battleriteCode)[0];
 
 exports.getMatchInformation = (match) => {
   console.log(1, match.Id);
@@ -15,15 +15,15 @@ exports.getMatchInformation = (match) => {
   const championInfo = gameplay.characters.filter(x => x.typeID === match.ChampionCode)[0];
   console.log(3, match.Id);
   const battlerite1Info = getBattleriteInfo(match.Br1, championInfo);
-  console.log(4, match.Id);
+  console.log(4, battlerite1Info);
   const battlerite2Info = getBattleriteInfo(match.Br2, championInfo);
-  console.log(5, match.Id);
+  console.log(5, battlerite2Info);
   const battlerite3Info = getBattleriteInfo(match.Br3, championInfo);
-  console.log(6, match.Id);
+  console.log(6, battlerite3Info);
   const battlerite4Info = getBattleriteInfo(match.Br4, championInfo);
-  console.log(7, match.Id);
+  console.log(7, battlerite4Info);
   const battlerite5Info = getBattleriteInfo(match.Br5, championInfo);
-  console.log(8, match.Id);
+  console.log(8, battlerite5Info);
 
   return {
     map: {
