@@ -16,6 +16,7 @@ exports.getMatchInformation = (match) => {
     const battlerite2Info = getBattleriteInfo(match.Br2, championInfo);
     const battlerite3Info = getBattleriteInfo(match.Br3, championInfo);
     const battlerite4Info = getBattleriteInfo(match.Br4, championInfo);
+    console.log(battlerite4Info);
     const battlerite5Info = getBattleriteInfo(match.Br5, championInfo);
 
     return {
