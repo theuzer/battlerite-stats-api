@@ -5,9 +5,9 @@ const queries = require('../common/queries');
 const Player = require('../models/player');
 const utils = require('../common/utils');
 
-const checkIfPlayerExists = playerName =>
+const checkIfPlayerExists = playerNameLower =>
   new Promise((resolve, reject) => {
-    Player.findOne({ playerName }).exec()
+    Player.findOne({ playerNameLower }).exec()
       .then((player) => {
         if (player !== null) {
           resolve(true);
@@ -20,9 +20,9 @@ const checkIfPlayerExists = playerName =>
       });
   });
 
-const getPlayerByName = playerName =>
+const getPlayerByName = playerNameLower =>
   new Promise((resolve, reject) => {
-    Player.findOne({ playerName }).exec()
+    Player.findOne({ playerNameLower }).exec()
       .then((player) => {
         if (player !== null) {
           resolve(player);
@@ -37,7 +37,7 @@ const getPlayerByName = playerName =>
 
 const checkIfPlayerExistsApi = (req, res) => {
   const playerName = req.query.playerName;
-  checkIfPlayerExists(playerName)
+  checkIfPlayerExists(playerName.toLowerCase())
     .then((exists) => {
       res.json(exists);
     })
