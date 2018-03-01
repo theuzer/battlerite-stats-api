@@ -44,7 +44,7 @@ const dataConnection = require('./database/index').dataConnection;
 const queries = require('./common/queries');
 
 ontime({
-  cycle: ['10'],
+  cycle: ['0', '10', '20', '30', '40', '50'],
 }, (ot) => {
   Player.count().exec((err, count) => {
     const random = Math.floor(Math.random() * count);
