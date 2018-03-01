@@ -83,11 +83,16 @@ const getMatchesApi = (req, res) => {
   console.log(req.headers['x-forwarded-for']);
   console.log(req.connection.remoteAddress);
 
-  const playerName = req.query.playerName;
+  const playerName = req.query.playerName ? req.query.playerName.toLowerCase() : '';
+
+  if (typeof playerName === 'undefined' || playerName === null) {
+    res.json("No player name provided");
+  }
+
   const page = req.query.page ? req.query.page : 0;
 
   console.time('mongo call');
-  getPlayerByName(playerName)
+  getPlayerByName(playerName.toLowerCase())
     .then((player) => {
       console.timeEnd('mongo call');
       if (player !== null) {
