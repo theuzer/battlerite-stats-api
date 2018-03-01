@@ -36,3 +36,34 @@ if (process.env.HEROKU_TIMER_CREATE === 'TRUE') {
     console.log('Pinged application');
   }, parseInt(process.env.HEROKU_APP_TIMER, 10));
 }
+
+const ontime = require('ontime');
+const sql = require('mssql');
+const Player = require('./models/player');
+const dataConnection = require('./database/index').dataConnection;
+const queries = require('./common/queries');
+
+ontime({
+  cycle: ['10'],
+}, (ot) => {
+  Player.count().exec((err, count) => {
+    const random = Math.floor(Math.random() * count);
+
+    Player.findOne().skip(random).exec()
+      .then((result) => {
+        console.log('test api', result.playerCode, result.playerName);
+        console.time('test api');
+        const q = queries.getCharacterGames(result.playerCode, 0);
+        new sql.Request(dataConnection).query(q)
+          .then(() => {
+            console.log('test api', 1);
+            console.timeEnd('test api');
+          })
+          .catch(() => {
+            console.log('test api', 2);
+            console.timeEnd('test api');
+          });
+      });
+  });
+  ot.done();
+});
