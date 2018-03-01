@@ -93,9 +93,7 @@ const getMatchesApi = (req, res) => {
       if (player !== null) {
         const playerId = player.playerCode;
         console.time('azure call');
-        const q = queries.getCharacterGames(playerId, page);
-        console.log(q);
-        new sql.Request(dataConnection).query(q)
+        new sql.Request(dataConnection).query(queries.getCharacterGames(playerId, page))
           .then((matches) => {
             console.timeEnd('azure call');
             console.time('mappings');
